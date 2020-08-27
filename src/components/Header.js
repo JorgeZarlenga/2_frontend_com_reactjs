@@ -1,9 +1,11 @@
 import React from 'react';
 
-export default function Header() {
+export default function Header({title, children}) { // ou usar desustrutração com {title} ao invés de props, assim como dentro de h1, que ia propos.title
     return(
         <header>
-            <h1>ReactJS </h1>
+            <h1>{title} </h1>
+
+            {children}
         </header>
     )
 }
