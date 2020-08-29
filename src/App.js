@@ -1,6 +1,10 @@
 // Arquivo principal
 
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react'; // useEffect dispara funções ao passo da alteração de informações
+import api from './services/api';
+
+import './App.css';
+//import backgroundImage from './assets/background.jpg';
 
 import Header from './components/Header';   
 
@@ -16,6 +20,13 @@ function App()
 {
 
     const [projects, setProjects] = useState(['Desenvolvimento de app', 'Front-end web']);
+
+    useEffect(() => {                // 2 parâmetros (qual função disparar e o segundo é quando disparar)
+                                    // array de dependências
+        api.get('/projects').then(response => {
+            console.log(response);
+        }); // ou só projects
+    }, []);                      
 
     //useState retorna um array com 2 posições:
 
@@ -36,6 +47,8 @@ function App()
         <>
           
             <Header title="Projects" />
+
+           
 
             <ul>
                 {projects.map(project => <li key = {project}>{project}</li>)}
