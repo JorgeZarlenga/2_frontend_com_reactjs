@@ -19,12 +19,12 @@ import Header from './components/Header';
 function App()
 {
 
-    const [projects, setProjects] = useState(['Desenvolvimento de app', 'Front-end web']);
+    const [projects, setProjects] = useState([]); // ou 'Desenvolvimento de app', 'Front-end web' - estático
 
     useEffect(() => {                // 2 parâmetros (qual função disparar e o segundo é quando disparar)
                                     // array de dependências
         api.get('/projects').then(response => {
-            console.log(response);
+            setProjects(response.data);
         }); // ou só projects
     }, []);                      
 
@@ -46,12 +46,10 @@ function App()
     return (
         <>
           
-            <Header title="Projects" />
-
-           
+            <Header title="Projects" />   
 
             <ul>
-                {projects.map(project => <li key = {project}>{project}</li>)}
+                {projects.map(project => <li key = {project.id}>{project.title}</li>)}
             </ul>
 
             <button type="button" onClick={handleAddProject}>Adicionar projeto</button>
