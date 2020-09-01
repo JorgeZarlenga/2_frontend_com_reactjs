@@ -33,11 +33,23 @@ function App()
     //1 - Variável com seu valor inicial
     //2 - Função para atualizar esse valor
 
-    function handleAddProject()
+    async function handleAddProject()
     {
         // projects.push(`Novo projeto ${Date.now()}`);
 
-        setProjects([...projects, `Novo projeto ${Date.now()}`]); // Spread operator que copia o que há em projects
+        //setProjects([...projects, `Novo projeto ${Date.now()}`]); // ... é Spread operator que copia o que há em projects
+
+        const response  = await api.post('projects', {
+            title: `Novo projeto ${Date.now()}`,
+            owner: "Jorge Zarlenga"
+        });
+
+        const project = response.data;
+        
+        // Aplicando conceito de imutabilidade, copiando todos os projetos já existentes através do spread operator:
+        setProjects([...projects, project]);
+
+
 
         console.log(projects);
     }
